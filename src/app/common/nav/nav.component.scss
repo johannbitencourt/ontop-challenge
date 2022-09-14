@@ -1,0 +1,54 @@
+@import '../../styles/colors.scss';
+
+.container{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+li {
+  padding: 8px;
+  color: $gray-40;
+
+  display: flex;
+  position: relative;
+  align-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.18px;
+  font-style: normal;
+
+  cursor: default;
+
+  img:first-child {
+    margin-right: 10px;
+  }
+
+  img:last-child {
+    margin-left: 10px;
+  }
+
+  &:hover {
+    opacity: 80%;
+    padding-bottom: 21px;
+    border-bottom: 6px solid $primary;
+  }
+}
+
+.active {
+  color: $primary;
+  padding-bottom: 21px;
+  border-bottom: 6px solid $primary;
+}
+
+@media (max-width: 985px) {
+  li {
+    font-size: 14px;
+  }
+}
