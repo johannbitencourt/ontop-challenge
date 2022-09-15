@@ -1,0 +1,6 @@
+<div class="container">
+  <select class="select-view">
+    <option [value]="null" selected>{{ placeholder }}</option>
+    <option *ngFor="let option of options" [value]="option.id">{{ option.value }}</option>
+  </select>
+</div>

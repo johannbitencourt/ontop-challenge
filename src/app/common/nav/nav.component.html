@@ -1,10 +1,10 @@
 <nav>
   <ul class="container">
     <li *ngFor="let section of sections" [ngClass]="{'active': section.active }" (click)="getNavigator(section)">
-      <img [src]="section.icon" [alt]="section.icon">
+      <img [src]="section.icon" [alt]="section.icon" draggable="false">
       <p>{{ section.title }}</p>
-      <img *ngIf="!section.active" src="/assets/arrow_down.png" alt="arrow-down-icon">
-      <img *ngIf="section.active" src="/assets/arrow_down_active.png" alt="arrow-down-icon">
+      <img *ngIf="!section.active" src="/assets/arrow_down.png" draggable="false" alt="arrow-down-icon">
+      <img *ngIf="section.active" src="/assets/arrow_down_active.png" draggable="false" alt="arrow-down-icon">
     </li>
   </ul>
 </nav>
