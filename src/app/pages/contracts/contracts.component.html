@@ -1,27 +1,36 @@
 <div class="flex-column container">
   <h1>Contracts for {{ '{{Client}}' }}</h1>
 
-  <div class="flex-row content">
+  <div class="flex-row search-content">
     <div class="search-input-container">
-      <img src="../../../assets/search.png" draggable="false" alt="search-icon">
+      <img src="assets/search.png" draggable="false" alt="search-icon">
       <input class="search-input" type="text" placeholder="Search">
     </div>
 
     <button class="flex-row btn-filter">
-      <img src="../../../assets/filter.svg" alt="filter-icon" draggable="false">
+      <img src="assets/filter.svg" alt="filter-icon" draggable="false">
       <span>Filter</span>
     </button>
 
     <button class="flex-row btn-new-hire">
-      <img src="../../../assets/add.png" alt="add-icon" draggable="false">
+      <img src="assets/add.png" alt="add-icon" draggable="false">
       <span>New hire</span>
     </button>
   </div>
 
-  <div class="flex-row content">
+  <div class="flex-row toolbar-content">
     <app-datepicker></app-datepicker>
     <app-select class="select-contract-type" placeholder="Contract type" [options]="contractTypes"></app-select>
     <app-input placeholder="Contractor name"></app-input>
     <app-select class="select-contract-status" placeholder="Status" [options]="contractorStatus"></app-select>
+    <button class="btn-clear-filter">
+      <img src="assets/trash.svg" alt="trash-icon" draggable="false">
+      <span>Clear filters</span>
+    </button>
+
+  </div>
+
+  <div class="table-content">
+    <app-table [columns]="contractorColumns" [data]="contractors"></app-table>
   </div>
 </div>

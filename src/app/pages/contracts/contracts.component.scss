@@ -26,10 +26,24 @@ app-datepicker {
   width: 190px;
 }
 
+.toolbar-content {
+  margin-top: 40px;
+  gap: 34px;
+}
+
+.btn-clear-filter {
+  display: none;
+}
+
+.table-content {
+  margin-top: 40px;
+  width: 1080px;
+}
+
 .container {
   margin-top: 65px;
 
-  .content {
+  .search-content {
     margin-top: 40px;
     gap: 25px;
   }
@@ -118,26 +132,14 @@ app-datepicker {
   }
 }
 
-/* Tablets, Ipads and Laptops */
-@media (min-width: 981px) and (max-width: 1280px) {
-  .container > .content> .search-input-container > .search-input {
-    width: 500px;
-  }
-
-  .container > .content> select {
-    width: 150px;
-    height: 40px;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-}
-
 /* Most of the Smartphones Mobiles (Portrait) */
 @media (min-width: 280px) and (max-width: 980px) {
-  .container > .content > .search-input-container > .search-input {
+  .container > .search-content > .search-input-container > .search-input {
     width: 330px;
+  }
+
+  .table-content {
+    margin: 0;
   }
 
   app-input {
@@ -148,17 +150,41 @@ app-datepicker {
     width: 230px;
   }
 
-  .select-contract-type {
+  .select-contract-type, .select-contract-status {
     width: 230px;
   }
 
-  .select-contract-status {
-    width: 230px;
+  .btn-clear-filter {
+    border: none;
+    display: flex;
+    position: relative;
+    left: 70px;
+
+    width: 135px;
+    height: 25px;
+    align-items: center;
+    justify-content: flex-start;
+
+    color: $primary;
+    background: $backgroud;
+
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+
+    img {
+      width: 13px;
+      height: 13px;
+      padding-right: 7px;
+    }
+
+    &:hover {
+      opacity: 40px;
+    }
   }
 
-  .container > .content> select {
-    width: 230px;
-    height: 40px;
+  .table-content {
+    width: 330px;
   }
 
   h1 {

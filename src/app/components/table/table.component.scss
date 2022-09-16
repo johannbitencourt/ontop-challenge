@@ -1,0 +1,123 @@
+@import '../../styles/colors.scss';
+
+table {
+  margin: 0;
+  padding: 0px 31px 30px 12px;
+  width: 100%;
+  table-layout: fixed;
+
+  font-family: aileron, sans-serif;
+  font-style: normal;
+
+  background-color: $white;
+
+  mix-blend-mode: normal;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border-collapse:separate;
+  border-spacing:0 24px;
+}
+
+table th {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+
+  &:first-child {
+    width: 55px;
+  }
+}
+
+table tbody tr {
+  background-color: $backgroud;
+}
+
+table td {
+  padding: 0.9rem;
+  text-align: left;
+  font-size: 14px;
+}
+
+table th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: $black;
+}
+
+@media screen and (max-width: 980px) {
+  table {
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    background-color: $backgroud;
+
+    color: $gray-80;
+
+    font-family: aileron, sans-serif;
+    font-style: normal;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+  }
+
+  table th {
+    display: none;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    display: block;
+    mix-blend-mode: normal;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+  }
+
+  table td {
+    display: block;
+    font-size: 12px;
+    text-align: right;
+
+    &:nth-child(even) {
+      border: 5px solid $white;
+      background: $backgroud;
+    }
+
+    &:nth-child(odd) {
+      background: $white;
+      border: 5px solid $white;
+    }
+
+    &:first-child {
+      display: none;
+    }
+
+    &:last-child,
+    &:first-child {
+      border-radius: 5px;
+    }
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 700;
+    color: $black;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}

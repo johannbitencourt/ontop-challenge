@@ -8,6 +8,8 @@ import { ContractsComponent } from './pages/contracts/contracts.component';
 import { InputComponent } from './components/input/input.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { SelectComponent } from './components/select/select.component';
+import { TableComponent } from './components/table/table.component';
+import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { SelectComponent } from './components/select/select.component';
     InputComponent,
     DatepickerComponent,
     SelectComponent,
+    TableComponent,
+    ChatBotComponent,
   ],
   imports: [
     BrowserModule,
