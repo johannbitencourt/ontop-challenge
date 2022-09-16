@@ -13,8 +13,12 @@
       <td data-label="Type">{{ item.type }}</td>
       <td data-label="Start date">{{ item.start_date }}</td>
       <td data-label="Amount">{{ item.amount }}</td>
-      <td data-label="Status">{{ item.status }}</td>
-      <td data-label="Actions">{{ 'actions to be taken' }}</td>
+      <td data-label="Status">
+        <app-tag [placeholder]="item.status"></app-tag>
+      </td>
+      <td data-label="Actions">
+        <app-action-button></app-action-button>
+      </td>
     </tr>
   </tbody>
 </table>

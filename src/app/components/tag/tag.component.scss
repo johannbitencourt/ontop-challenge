@@ -1,0 +1,60 @@
+@import '../../styles/colors.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+
+  width: 162px;
+  height: 24px;
+  border-radius: 20px;
+
+  .circle {
+    margin: 0 5px 0 9px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+  }
+}
+
+.active {
+  color: $active;
+  background-color: $active-light;
+  .circle {
+    background-color: $active;
+  }
+}
+
+.pending {
+  color: $pending;
+  background-color: $pending-light;
+  .circle {
+    background-color: $pending;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  :host {
+    display: flex;
+    justify-content: flex-end;
+
+    .container {
+      width: 112px;
+      height: 19px;
+      border-radius: 16px;
+      font-size: 8px;
+      line-height: 10px;
+
+      .circle {
+        width: 4px;
+        height: 4px;
+        border-radius: 16px;
+      }
+    }
+  }
+}

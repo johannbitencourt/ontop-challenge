@@ -10,6 +10,8 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import { SelectComponent } from './components/select/select.component';
 import { TableComponent } from './components/table/table.component';
 import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
+import { ActionButtonComponent } from './components/action-button/action-button.component';
+import { TagComponent } from './components/tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
     SelectComponent,
     TableComponent,
     ChatBotComponent,
+    ActionButtonComponent,
+    TagComponent,
   ],
   imports: [
     BrowserModule,
