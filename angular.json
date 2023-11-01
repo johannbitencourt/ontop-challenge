@@ -81,7 +81,6 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "karmaConfig": "karma.conf.js",
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
