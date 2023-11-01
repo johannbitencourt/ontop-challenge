@@ -25,4 +25,4 @@ const pipes = [
     ...pipes
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
