@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+	height: auto;
+  overflow: auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 120vw;
+  margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 576px) {
+  .page-container {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .page-container {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .page-container {
+    padding: 30px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .page-container {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-container {
+    padding: 50px;
+  }
+}
