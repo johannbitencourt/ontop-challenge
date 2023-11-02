@@ -9,7 +9,7 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   styleUrls: ['./pokemon-list.component.css']
 })
 export class PokemonListComponent implements OnInit, OnDestroy {
-  public pokemons: any;
+  public pokemons: Pokemon[] = [];
   public isLoading: boolean = false;
   public currentPage: number = 1;
   public totalPages: number = 0;
@@ -45,7 +45,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
           const batchRequests = names.map((name: string) => this.pokemonService.getPokemon(name));
           return forkJoin(batchRequests);
         }),
-        map((res) => this.pokemonService.pokemonListMapper(res))
       ).subscribe({
           next: (pokemons: Pokemon[]) => {
             this.pokemons = pokemons;
