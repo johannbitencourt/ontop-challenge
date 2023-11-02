@@ -1,0 +1,19 @@
+<div class="container">
+  <span>{{ currentPage }} of {{ total }} pages</span>
+  <button
+    class="btn btn-paginator"
+    type="button"
+    [disabled]="currentPage === 1"
+    (click)="previous()"
+  >
+    <img src="assets/icons/arrow-left.svg" alt="arrow_left">
+  </button>
+  <button
+    class="btn btn-paginator"
+    type="button"
+    [disabled]="currentPage === total"
+    (click)="next()"
+  >
+    <img src="assets/icons/arrow-right.svg" alt="arrow_right">
+  </button>
+</div>

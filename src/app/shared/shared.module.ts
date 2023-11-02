@@ -1,28 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { PokemonTypeColorPipe } from './pipes/pokemonTypeColor.pipe';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { ArrayByLengthPipe } from './pipes/array-by-length.pipe';
+import { PokemonTypeColorDirective } from './directives/pokemon-type-color.directive';
 
-
-const directives: any[] = [];
-const components = [
-  PlaceholderComponent
-];
-const pipes = [
-  PokemonTypeColorPipe
-];
 
 @NgModule({
   declarations: [
-    ...components,
-    ...directives,
-    ...pipes,
+    PaginatorComponent,
+    PlaceholderComponent,
+    ArrayByLengthPipe,
+    PokemonTypeColorDirective,
   ],
   imports: [CommonModule],
   exports: [
-    ...components,
-    ...directives,
-    ...pipes
+    PaginatorComponent,
+    PlaceholderComponent,
+    ArrayByLengthPipe,
+    PokemonTypeColorDirective
   ],
 })
 export class SharedModule { }
