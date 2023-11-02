@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./placeholder.component.css']
 })
 export class PlaceholderComponent {
-  @Input() width: number = 100;
-  @Input() height: number = 15;
+  @Input() padding: number = 15;
   @Input() borderRadius: number = 15;
 }
