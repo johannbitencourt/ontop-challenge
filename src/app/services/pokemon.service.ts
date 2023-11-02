@@ -17,7 +17,9 @@ export class PokemonService {
   }
 
   public getPokemon(name: string): Observable<Pokemon> {
-    return this.http.get<Pokemon>(`${this.url}/pokemon/${name}`);
+    return this.http.get<Pokemon>(`${this.url}/pokemon/${name}`).pipe(
+      map((pokemon: Pokemon) => this.pokemonMapper(pokemon)),
+    );
   }
 
   public getProcessedPokemons(page: number, limit: number): Observable<PokemonsResponse> {
@@ -32,11 +34,10 @@ export class PokemonService {
     );
   }
 
-  public pokemonListMapper(pokemons: Pokemon[]): Pokemon[] {
-    return pokemons.map(({ id, name, types }) => ({
-      id: id,
-      name: name,
-      types: types.map((type: any) => type.type.name)
-    }));
+  private pokemonMapper(pokemon: Pokemon): Pokemon {
+    return {
+      ...pokemon,
+      types: pokemon.types.map((type: any) => type.type.name)
+    };
   }
 }
