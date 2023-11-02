@@ -1,0 +1,21 @@
+.card {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.header {
+  text-align: center;
+  font-weight: bold;
+  padding: 0.8rem;
+  border-bottom: 1px solid;
+}
+
+.content {
+  padding: 0.8rem;
+}
+
+.footer {
+  margin-top: 1rem;
+  text-align: right;
+  padding: 0.8rem;
+}
