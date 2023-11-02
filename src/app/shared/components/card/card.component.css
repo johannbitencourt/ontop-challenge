@@ -1,21 +1,22 @@
 .card {
-  border: 1px solid #ccc;
+  overflow: hidden;
+  border: 1px solid var(--gray-500);
   border-radius: 0.5rem;
+}
+
+.header, .content {
+  padding: 0.8rem;
 }
 
 .header {
   text-align: center;
   font-weight: bold;
-  padding: 0.8rem;
-  border-bottom: 1px solid;
+  color: var(--white);
+  background-color: var(--gray-800);
+  border-bottom: 1px solid var(--white);
+
 }
 
-.content {
-  padding: 0.8rem;
-}
-
-.footer {
-  margin-top: 1rem;
-  text-align: right;
-  padding: 0.8rem;
+ .content {
+  background-color: var(--gray-200);
 }
