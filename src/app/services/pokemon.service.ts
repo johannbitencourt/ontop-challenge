@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable,map, switchMap } from 'rxjs';
-import { Pokemon, PokemonsResponse, Stats } from '../models/pokemon';
+import { Evolution, PokeApiChain, PokeApiEvolutionChain, PokeApiPokemon, PokeApiPokemonType, PokeApiStat, Pokemon, PokemonsResponse, Stats } from '../models/pokemon';
 
 
 @Injectable({
@@ -20,8 +20,8 @@ export class PokemonService {
   }
 
   public getPokemon(name: string): Observable<Pokemon> {
-    return this.http.get<Pokemon>(`${this.url}/pokemon/${name}`).pipe(
-      map((pokemon: Pokemon) => this.pokemonMapper(pokemon)),
+    return this.http.get<PokeApiPokemon>(`${this.url}/pokemon/${name}`).pipe(
+      map((pokemon) => this.pokemonMapper(pokemon)),
     );
   }
 
@@ -37,43 +37,47 @@ export class PokemonService {
     );
   }
 
-  public getPokemonSpecies(name: string): Observable<any> {
+  public getPokemonSpecies(name: string): Observable<Evolution[]> {
     return this.http.get(`${this.url}/pokemon-species/${name}`).pipe(
-      switchMap((res: any) => {
-        const chainId = res.evolution_chain.url.split('/').filter(Boolean).pop();
+      switchMap(({ evolution_chain }: any) => {
+        const chainId = evolution_chain.url.split('/').filter(Boolean).pop() || '';
         return this.getPokemonEvolutions(chainId);
       }),
     );
   }
 
-  private getPokemonEvolutions(chainId: number): Observable<any> {
+  private getPokemonEvolutions(chainId: string): Observable<Evolution[]> {
     return this.http.get(`${this.url}/evolution-chain/${chainId}`).pipe(
-      map((res) => this.formatPokemonEvolutions(res)),
+      map((res) => this.formatPokemonEvolutions(res as PokeApiEvolutionChain)),
     );
   }
 
-  private pokemonMapper(pokemon: Pokemon): Pokemon {
+  private pokemonMapper(pokemon: PokeApiPokemon): Pokemon {
     return {
       ...pokemon,
-      types: pokemon.types.map((type: any) => type.type.name),
+      types: this.formatPokemonTypes(pokemon.types),
       stats: this.formatStats(pokemon.stats),
     };
   }
 
-  private formatStats(data: any): Stats {
-    const formattedStats: any = {};
-
-    data.forEach((it: any) => {
-      formattedStats[it.stat.name] = it.base_stat;
-    });
-    return formattedStats;
+  private formatPokemonTypes(types: PokeApiPokemonType[]) {
+    return types.map((type) => type.type.name)
   }
 
-  private formatPokemonEvolutions(data: any) {
-    const evolutions: any = [];
+  private formatStats(data: PokeApiStat[]): Stats {
+    const formattedStats: { [key: string]: number } = {};
 
-    const process = (chain: any) => {
-      const id = chain.species.url.split('/').filter(Boolean).pop();
+    data.forEach((it: PokeApiStat) => {
+      formattedStats[it.stat.name] = it.base_stat;
+    });
+    return formattedStats as unknown as Stats;
+  }
+
+  private formatPokemonEvolutions(data: PokeApiEvolutionChain): Evolution[] {
+    const evolutions: Evolution[] = [];
+
+    const process = (chain: PokeApiChain) => {
+      const id: string = chain.species.url.split('/').filter(Boolean).pop() || '';
 
       if (chain.species) {
         evolutions.push({

@@ -27,5 +27,5 @@ export const loadPokemonViewSuccess = createAction(
 
 export const loadFailure = createAction(
   '[pokemon] load pokemons failure',
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
