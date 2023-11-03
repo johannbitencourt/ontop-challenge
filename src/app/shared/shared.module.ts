@@ -5,11 +5,13 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
 import { ArrayByLengthPipe } from './pipes/array-by-length.pipe';
 import { PokemonTypeColorDirective } from './directives/pokemon-type-color.directive';
 import { CardComponent } from './components/card/card.component';
+import { BadgeComponent } from './components/badge/badge.component';
 
 
 @NgModule({
   declarations: [
     CardComponent,
+    BadgeComponent,
     PaginatorComponent,
     PlaceholderComponent,
     ArrayByLengthPipe,
@@ -18,6 +20,7 @@ import { CardComponent } from './components/card/card.component';
   imports: [CommonModule],
   exports: [
     CardComponent,
+    BadgeComponent,
     PaginatorComponent,
     PlaceholderComponent,
     ArrayByLengthPipe,
