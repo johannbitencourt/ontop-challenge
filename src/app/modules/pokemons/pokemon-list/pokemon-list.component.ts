@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, forkJoin, map, mergeMap, tap } from 'rxjs';
-import { PokeApiResult, Pokemon } from 'src/app/models/pokemon';
-import { PokemonService } from 'src/app/services/pokemon.service';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { Pokemon } from 'src/app/models/pokemon';
+import { selectPokemonError, selectPokemonLoading, selectPokemons, selectTotalPages } from '../states/pokemon.selectors';
+import { loadPokemons } from '../states/pokemon.actions';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -9,20 +11,31 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   styleUrls: ['./pokemon-list.component.css']
 })
 export class PokemonListComponent implements OnInit, OnDestroy {
-  public pokemons: Pokemon[] = [];
-  public isLoading: boolean = false;
-  public currentPage: number = 1;
-  public totalPages: number = 0;
+  public pokemons$: Observable<Pokemon[]> = new Observable();
+  public totalPages$: Observable<number> = new Observable();
+  public loading$: Observable<boolean> = new Observable();
+  public error$: Observable<any> = new Observable();
+
+  public page: number = 1;
   public limit: number = 40;
 
   private pokemonsSubscription: Subscription = new Subscription();
 
   constructor(
-    private pokemonService: PokemonService,
-  ) { }
+    private store: Store,
+  ) {
+    this.pokemons$ = this.store.select(selectPokemons);
+    this.totalPages$ = this.store.select(selectTotalPages);
+    this.loading$ = this.store.select(selectPokemonLoading);
+    this.error$ = this.store.select(selectPokemonError);
+  }
 
   public ngOnInit(): void {
-    this.getAllPokemons(this.currentPage);
+    this.pokemonsSubscription.add(
+      this.pokemonsSubscription = this.totalPages$.subscribe(() => {
+        this.getAllPokemons(this.page, this.limit);
+      })
+    );
   }
 
   public ngOnDestroy():void {
@@ -30,31 +43,11 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   }
 
   public onPageChange(page: number) {
-    this.currentPage = page;
-    this.getAllPokemons(page);
+    this.page = page;
+    this.getAllPokemons(this.page, this.limit);
   }
 
-  private getAllPokemons(page: number) {
-    this.isLoading = true;
-
-    this.pokemonsSubscription.add(
-      this.pokemonService.getProcessedPokemons(page, this.limit).pipe(
-        tap(({ totalPages }) => this.totalPages = totalPages),
-        map(({ results }) => results.map((result: PokeApiResult) => result.name)),
-        mergeMap((names: string[]) => {
-          const batchRequests = names.map((name: string) => this.pokemonService.getPokemon(name));
-          return forkJoin(batchRequests);
-        }),
-      ).subscribe({
-          next: (pokemons: Pokemon[]) => {
-            this.pokemons = pokemons;
-          },
-          error: (error) => {
-            console.error('Error fetching pokemons', error);
-          },
-          complete: () => this.isLoading = false,
-        }
-      )
-    );
+  private getAllPokemons(page: number, limit: number) {
+    this.store.dispatch(loadPokemons({ page, limit }))
   }
 }

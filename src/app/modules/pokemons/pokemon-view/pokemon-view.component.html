@@ -1,72 +1,74 @@
 <div class="page-container">
-  <div class="page-content" *ngIf="!isLoading; else placeholder">
+  <div class="page-content" *ngIf="!(loading$ | async); else placeholder">
 
-    <div class="header">
-      <a class="btn btn-back" [routerLink]="['/']">
-        <img src="assets/icons/arrow-left.svg" alt="arrow-left">
-      </a>
+    <ng-container *ngIf="(pokemon$ | async) as pokemon">
+      <section class="header">
+        <a class="btn btn-back" [routerLink]="['/']">
+          <img src="assets/icons/arrow-left.svg" alt="arrow-left">
+        </a>
 
-      <h1 class="title">{{ pokemon.name | titlecase }}</h1>
-    </div>
+        <h1 class="title">{{ pokemon.name | titlecase }}</h1>
+      </section>
 
 
-    <div class="figure-container" [appPokemonTypeColor]="pokemon.types[0]">
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png"
-        [alt]="pokemon.name"
-        draggable="false"
-        loading="lazy"
-        width="200"
-        height="200"
-      >
-      <div class="badge-container">
-        <ng-container *ngFor="let type of pokemon.types">
-          <app-badge [type]="type"></app-badge>
-        </ng-container>
-      </div>
-    </div>
-
-    <div class="list">
-      <app-card>
-        <div class="header">
-          Stats
+      <section class="figure-container" [appPokemonTypeColor]="pokemon.types[0]">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png"
+          [alt]="pokemon.name"
+          draggable="false"
+          loading="lazy"
+          width="200"
+          height="200"
+        >
+        <div class="badge-container">
+          <ng-container *ngFor="let type of pokemon.types">
+            <app-badge [type]="type"></app-badge>
+          </ng-container>
         </div>
-        <div class="content">
-          <div class="stats-container">
-            <ng-container *ngFor="let stat of pokemon.stats | keyvalue">
-              <div class="stats-content">
-                <span class="stats-text">{{ stat.key | titlecase }}</span>
-                <div class="progress-bar">
-                  <div class="progress" [appPokemonTypeColor]="pokemon.types[0]" [style.maxWidth.%]="stat.value"></div>
+      </section>
+
+      <section class="list">
+        <app-card>
+          <div class="header">
+            Stats
+          </div>
+          <div class="content">
+            <div class="stats-container">
+              <ng-container *ngFor="let stat of pokemon.stats | keyvalue">
+                <div class="stats-content">
+                  <span class="stats-text">{{ stat.key | titlecase }}</span>
+                  <div class="progress-bar">
+                    <div class="progress" [appPokemonTypeColor]="pokemon.types[0]" [style.maxWidth.%]="stat.value"></div>
+                  </div>
+                  <span class="stats-text">{{ stat.value }}</span>
                 </div>
-                <span class="stats-text">{{ stat.value }}</span>
-              </div>
-            </ng-container>
+              </ng-container>
+            </div>
           </div>
-        </div>
-      </app-card>
+        </app-card>
 
-      <app-card>
-        <div class="header">
-          Evolutions
-        </div>
-        <div class="content">
-          <div class="evolutions-container">
-            <ng-container *ngFor="let evolution of evolutions">
-              <a class="evolutions-content" [routerLink]="['/pokemon', evolution.name]">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{evolution.id}}.png"
-                  [alt]="evolution.name"
-                  draggable="false"
-                  loading="lazy"
-                  width="120"
-                  height="120"
-                >
-                <span>{{ evolution.name | titlecase }}</span>
-              </a>
-            </ng-container>
+        <app-card>
+          <div class="header">
+            Evolutions
           </div>
-        </div>
-      </app-card>
-    </div>
+          <div class="content">
+            <div class="evolutions-container">
+              <ng-container *ngFor="let evolution of (evolutions$ | async)">
+                <a class="evolutions-content" [routerLink]="['/pokemon', evolution.name]">
+                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{evolution.id}}.png"
+                    [alt]="evolution.name"
+                    draggable="false"
+                    loading="lazy"
+                    width="120"
+                    height="120"
+                  >
+                  <span>{{ evolution.name | titlecase }}</span>
+                </a>
+              </ng-container>
+            </div>
+          </div>
+        </app-card>
+      </section>
+    </ng-container>
   </div>
 </div>
 

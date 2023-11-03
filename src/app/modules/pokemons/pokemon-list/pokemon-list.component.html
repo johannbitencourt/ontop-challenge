@@ -3,8 +3,8 @@
   <div class="page-content">
     <h1>Pokemons</h1>
 
-    <div class="list" *ngIf="!isLoading; else placeholder">
-      <ng-container *ngFor="let pokemon of pokemons">
+    <div class="list" *ngIf="!(loading$ | async); else placeholder">
+      <ng-container *ngFor="let pokemon of (pokemons$ | async)">
         <a class="card" [appPokemonTypeColor]="pokemon.types[0]" [routerLink]="['pokemon', pokemon.name]">
           <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png"
             [alt]="pokemon.name"
@@ -26,9 +26,9 @@
       </ng-container>
     </div>
 
-    <app-paginator
+    <app-paginator *ngIf="(totalPages$ | async) as totalPages"
       class="paginator"
-      [currentPage]="currentPage"
+      [currentPage]="page"
       [total]="totalPages"
       (onPageChange)="onPageChange($event)">
     </app-paginator>

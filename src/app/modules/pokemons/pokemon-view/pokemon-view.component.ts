@@ -1,27 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription, combineLatest } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Evolution, Pokemon } from 'src/app/models/pokemon';
-import { PokemonService } from 'src/app/services/pokemon.service';
+import { selectCurrentPokemon, selectEvolutions, selectPokemonError, selectPokemonLoading } from '../states/pokemon.selectors';
+import { loadPokemonView } from '../states/pokemon.actions';
 
 @Component({
   selector: 'app-pokemon-view',
   templateUrl: './pokemon-view.component.html',
   styleUrls: ['./pokemon-view.component.css']
 })
-export class PokemonViewComponent implements OnInit, OnDestroy {
+export class PokemonViewComponent implements OnInit {
 
-  public pokemon: Pokemon = {} as Pokemon;
-  public evolutions: Evolution[] = [];
-  public isLoading: boolean = false;
-
-  private pokemonsSubscription: Subscription = new Subscription();
+  public pokemon$: Observable<Pokemon> = new Observable();
+  public evolutions$: Observable<Evolution[]> = new Observable();
+  public loading$: Observable<boolean> = new Observable();
+  public error$: Observable<any> = new Observable();
 
   constructor(
+    private readonly store: Store,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private readonly pokemonService: PokemonService,
-  ) { }
+  ) {
+
+    this.pokemon$ = this.store.select(selectCurrentPokemon);
+    this.evolutions$ = this.store.select(selectEvolutions);
+    this.loading$ = this.store.select(selectPokemonLoading);
+    this.error$ = this.store.select(selectPokemonError);
+  }
 
   public ngOnInit(): void {
     this.scrollToTop();
@@ -29,13 +36,9 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
     if (this.route && this.route.paramMap) {
       this.route.paramMap.subscribe((params) => {
         const pokemonName = params.get('name') as string;
-        this.getPokemon(pokemonName);
+        this.store.dispatch(loadPokemonView({ name: pokemonName }));
       });
     }
-  }
-
-  public ngOnDestroy(): void {
-    this.pokemonsSubscription.unsubscribe();
   }
 
   private scrollToTop(): void {
@@ -49,22 +52,5 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
-
-  private getPokemon(name: string) {
-    this.isLoading = true;
-
-    this.pokemonsSubscription.add(
-      combineLatest([
-        this.pokemonService.getPokemon(name),
-        this.pokemonService.getPokemonSpecies(name)
-      ]).subscribe({
-        next: ([pokemon, evolutions]) => {
-          this.pokemon = pokemon;
-          this.evolutions = evolutions;
-        },
-        complete: () => this.isLoading = false,
-      })
-    );
   }
 }
