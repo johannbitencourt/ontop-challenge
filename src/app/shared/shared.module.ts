@@ -6,12 +6,14 @@ import { ArrayByLengthPipe } from './pipes/array-by-length.pipe';
 import { PokemonTypeColorDirective } from './directives/pokemon-type-color.directive';
 import { CardComponent } from './components/card/card.component';
 import { BadgeComponent } from './components/badge/badge.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 @NgModule({
   declarations: [
     CardComponent,
     BadgeComponent,
+    ErrorComponent,
     PaginatorComponent,
     PlaceholderComponent,
     ArrayByLengthPipe,
@@ -21,6 +23,7 @@ import { BadgeComponent } from './components/badge/badge.component';
   exports: [
     CardComponent,
     BadgeComponent,
+    ErrorComponent,
     PaginatorComponent,
     PlaceholderComponent,
     ArrayByLengthPipe,

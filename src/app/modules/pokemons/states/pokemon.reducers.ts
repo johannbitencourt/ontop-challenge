@@ -9,7 +9,7 @@ export interface PokemonState {
   currentPokemon: Pokemon;
   evolutions: Evolution[];
   loading: boolean;
-  error: any;
+  error: unknown;
 }
 
 export const initialState: PokemonState = {

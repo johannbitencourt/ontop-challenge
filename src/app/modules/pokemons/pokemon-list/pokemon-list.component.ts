@@ -14,12 +14,14 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   public pokemons$: Observable<Pokemon[]> = new Observable();
   public totalPages$: Observable<number> = new Observable();
   public loading$: Observable<boolean> = new Observable();
-  public error$: Observable<any> = new Observable();
+  public error$: Observable<unknown> = new Observable();
 
-  public page: number = 1;
-  public limit: number = 40;
+  public page = 1;
+  public limit = 40;
+  public error: unknown;
 
-  private pokemonsSubscription: Subscription = new Subscription();
+  private readonly errorSubscription = new Subscription();
+  private readonly pokemonsSubscription: Subscription = new Subscription();
 
   constructor(
     private store: Store,
@@ -32,9 +34,13 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.pokemonsSubscription.add(
-      this.pokemonsSubscription = this.totalPages$.subscribe(() => {
+      this.totalPages$.subscribe(() => {
         this.getAllPokemons(this.page, this.limit);
       })
+    );
+
+    this.errorSubscription.add(
+      this.error$.subscribe((error) => this.error = error)
     );
   }
 
