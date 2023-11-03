@@ -54,7 +54,7 @@
             <ng-container *ngFor="let evolution of evolutions">
               <a class="evolutions-content" [routerLink]="['/pokemon', evolution.name]">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{evolution.id}}.png"
-                  [alt]="pokemon.name"
+                  [alt]="evolution.name"
                   draggable="false"
                   loading="lazy"
                   width="120"
