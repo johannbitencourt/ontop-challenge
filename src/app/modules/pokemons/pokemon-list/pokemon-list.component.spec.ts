@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PokemonListComponent } from './pokemon-list.component';
-import { PokemonService } from 'src/app/services/pokemon.service';
+import { PokemonService } from 'src/app/services/pokemons/pokemon.service';
 import { PokemonsModule } from '../pokemons.module';
 
 

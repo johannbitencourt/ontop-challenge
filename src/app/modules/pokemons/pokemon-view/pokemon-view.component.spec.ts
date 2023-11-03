@@ -3,7 +3,7 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PokemonViewComponent } from './pokemon-view.component';
-import { PokemonService } from 'src/app/services/pokemon.service';
+import { PokemonService } from 'src/app/services//pokemons/pokemon.service';
 import { PokemonsModule } from '../pokemons.module';
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable,map, switchMap } from 'rxjs';
-import { Evolution, PokeApiChain, PokeApiEvolutionChain, PokeApiPokemon, PokeApiPokemonType, PokeApiStat, Pokemon, PokemonsResponse, Stats } from '../models/pokemon';
+import { Evolution, PokeApiChain, PokeApiEvolutionChain, PokeApiPokemon, PokeApiPokemonType, PokeApiStat, Pokemon, PokemonsResponse, Stats } from '../../models/pokemon';
 
 
 @Injectable({

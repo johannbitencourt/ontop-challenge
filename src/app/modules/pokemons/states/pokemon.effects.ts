@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, combineLatest, forkJoin, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import * as PokemonActions from './pokemon.actions';
-import { PokemonService } from 'src/app/services/pokemon.service';
+import { PokemonService } from 'src/app/services/pokemons/pokemon.service';
 import { PokeApiResult } from 'src/app/models/pokemon';
 
 

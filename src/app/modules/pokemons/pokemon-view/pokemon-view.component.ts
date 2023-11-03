@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Evolution, Pokemon } from 'src/app/models/pokemon';
 import { selectCurrentPokemon, selectEvolutions, selectPokemonError, selectPokemonLoading } from '../states/pokemon.selectors';
 import { loadPokemonView } from '../states/pokemon.actions';
+import { RouterUtilsService } from 'src/app/services/router/router-utils.service';
 
 @Component({
   selector: 'app-pokemon-view',
@@ -23,8 +24,8 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly store: Store,
-    private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly routerUtilsService: RouterUtilsService
   ) {
 
     this.pokemon$ = this.store.select(selectCurrentPokemon);
@@ -34,7 +35,7 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.scrollToTop();
+    this.routerUtilsService.scrollToTop();
 
     if (this.route && this.route.paramMap) {
       this.route.paramMap.subscribe((params) => {
@@ -50,18 +51,5 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.errorSubscription.unsubscribe();
-  }
-
-  private scrollToTop(): void {
-    if (this.router && this.router.events) {
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd && window) {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        }
-      });
-    }
   }
 }
